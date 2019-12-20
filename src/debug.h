@@ -65,6 +65,7 @@
 #endif
 
 // filenames
+#include <string.h>
 #if __SHOW_FILENAMES__
   #if __SHOW_FULL_FILENAME_PATH__
     #define __FILENAME__ __FILE__ // show the entire mess

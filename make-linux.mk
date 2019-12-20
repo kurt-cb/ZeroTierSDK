@@ -27,7 +27,8 @@ INCLUDES=
 DEFS=
 ARCH_FLAGS=-arch x86_64
 CFLAGS=
-CXXFLAGS=$(CFLAGS) -fno-rtti
+CXXFLAGS=-fno-rtti
+CFLAGS=-std=c99
 
 include objects.mk
 
@@ -218,7 +219,7 @@ linux_service_and_intercept: linux_intercept linux_sdk_service
 
 # Builds a single static library which contains everything
 linux_static_lib: pico $(OBJS)
-	$(CC) $(CFLAGS) $(STACK_FLAGS) $(DEFS) $(INCLUDES) $(ZTFLAGS) -DSDK_SERVICE -DSDK -DSDK_BUNDLED $(PICO_DRIVER_FILES) $(SDK_INTERCEPT_C_FILES) -c 
+	gcc $(CPPFLAGS) $(STACK_FLAGS) $(DEFS) $(INCLUDES) $(ZTFLAGS) -DSDK_SERVICE -DSDK -DSDK_BUNDLED $(PICO_DRIVER_FILES) $(SDK_INTERCEPT_C_FILES) -c 
 	$(CXX) $(CXXFLAGS) $(STACK_FLAGS) $(DEFS) $(INCLUDES) $(ZTFLAGS) -DSDK_SERVICE -DSDK -DSDK_BUNDLED $(PICO_DRIVER_FILES) $(SDK_SERVICE_CPP_FILES) src/service.cpp -c 
 	ar -rcs build/libzt.a picotcp.o proxy.o tap.o one.o OneService.o service.o sockets.o rpc.o intercept.o $(OBJS)
 
